@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">android-test-luizalabs</string>
+    <string name="list_title">Lista dos Gists</string>
+</resources>
