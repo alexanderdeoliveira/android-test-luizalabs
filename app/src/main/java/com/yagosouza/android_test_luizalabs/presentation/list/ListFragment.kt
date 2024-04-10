@@ -49,14 +49,11 @@ class ListFragment : Fragment(), ListContract.View {
             isNestedScrollingEnabled = false
 
             recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
-                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-                    val visibleItemCount = layoutManager.childCount
-                    val totalItemCount = layoutManager.itemCount
-                    val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
-                    if (visibleItemCount + firstVisibleItemPosition >= totalItemCount && firstVisibleItemPosition >= 0) {
+                    if (!recyclerView.canScrollVertically(1)) {
                         presenter.fetchGist(page++)
                     }
                 }

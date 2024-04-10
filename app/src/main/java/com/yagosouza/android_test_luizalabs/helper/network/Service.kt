@@ -7,11 +7,13 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 private const val BASE_URL = "https://api.github.com/"
+private const val TOKEN = ""
 
 class Service {
 
     private val okHttp: OkHttpClient by lazy {
         OkHttpClient.Builder()
+            .addInterceptor(AuthInterceptor(TOKEN))
             .build()
     }
 
