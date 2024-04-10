@@ -2,25 +2,26 @@ package com.yagosouza.android_test_luizalabs.presentation.list
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.yagosouza.android_test_luizalabs.R
 import com.yagosouza.android_test_luizalabs.databinding.FragmentListBinding
 import com.yagosouza.android_test_luizalabs.domain.model.Gist
+import com.yagosouza.android_test_luizalabs.presentation.detail.DetailFragment
 import com.yagosouza.android_test_luizalabs.presentation.list.adapter.ListAdapter
 import org.koin.android.ext.android.inject
 
+
 class ListFragment : Fragment(), ListContract.View {
 
-    private var _binding: FragmentListBinding? = null
-    private val binding: FragmentListBinding
-        get() = _binding!!
+    private lateinit var binding: FragmentListBinding
 
-    private val listAdapter by lazy { ListAdapter() }
+    private val listAdapter by lazy { ListAdapter(onItemClick = ::onItemSelected) }
     private val presenter: ListPresenterImpl by inject()
 
     private var page = 1
@@ -29,7 +30,7 @@ class ListFragment : Fragment(), ListContract.View {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentListBinding.inflate(layoutInflater)
+        binding = FragmentListBinding.inflate(layoutInflater, container, false)
 
         setupView()
         return binding.root
@@ -73,11 +74,25 @@ class ListFragment : Fragment(), ListContract.View {
     }
 
     override fun displayLoading(isLoading: Boolean) {
-        binding.listProgressBar.isVisible = isLoading
+        binding.progressBarList.isVisible = isLoading
     }
 
     override fun showError(error: Throwable) {
         Log.d("ERRO_API", error.message ?: "Sem mensagem de erro")
+    }
+
+    override fun onItemSelected(id: String) {
+        navigateToDetail(id)
+    }
+
+    private fun navigateToDetail(id: String) {
+        val fragmentManager = requireActivity().supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        val fragment = DetailFragment.newInstance(id)
+
+        fragmentTransaction.replace(R.id.container, fragment)
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
     }
 
     companion object {

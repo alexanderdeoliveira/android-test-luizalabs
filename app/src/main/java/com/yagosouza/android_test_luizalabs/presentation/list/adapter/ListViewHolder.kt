@@ -13,7 +13,7 @@ class ListViewHolder(
     private val binding: FragmentListItemBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(gist: Gist) = with(binding) {
+    fun bind(gist: Gist, onItemClick: (String) -> Unit) = with(binding) {
         username.text = gist.owner?.login
         name.text = gist.files?.type
         Picasso.get()
@@ -31,6 +31,6 @@ class ListViewHolder(
         imageButtonFavorite.setOnClickListener {
             imageButtonFavorite.setImageResource(R.drawable.ic_star)
         }
-        root.setOnClickListener {  }
+        root.setOnClickListener { onItemClick(gist.id!!) }
     }
 }

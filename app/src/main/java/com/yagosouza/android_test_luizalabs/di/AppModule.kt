@@ -14,6 +14,7 @@ import com.yagosouza.android_test_luizalabs.domain.usecase.GetGistDetailUseCaseI
 import com.yagosouza.android_test_luizalabs.domain.usecase.GetGistUseCase
 import com.yagosouza.android_test_luizalabs.domain.usecase.GetGistUseCaseImpl
 import com.yagosouza.android_test_luizalabs.helper.network.Service
+import com.yagosouza.android_test_luizalabs.presentation.detail.DetailPresenterImpl
 import com.yagosouza.android_test_luizalabs.presentation.list.ListPresenterImpl
 import org.koin.dsl.module
 
@@ -30,4 +31,6 @@ val appModule = module {
     factory<GetGistDetailUseCase> { GetGistDetailUseCaseImpl(repository = get()) }
 
     factory { ListPresenterImpl(getGistUseCase = get()) }
+
+    factory { DetailPresenterImpl(getGistDetailUseCase = get()) }
 }

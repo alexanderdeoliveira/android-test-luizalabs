@@ -1,9 +1,7 @@
 package com.yagosouza.android_test_luizalabs.data.repository
 
-import com.yagosouza.android_test_luizalabs.data.api.GistService
 import com.yagosouza.android_test_luizalabs.data.datasource.GistDetailRemoteDataSource
-import com.yagosouza.android_test_luizalabs.data.mappers.toDomain
-import com.yagosouza.android_test_luizalabs.domain.model.GistDetail
+import com.yagosouza.android_test_luizalabs.domain.model.Gist
 import com.yagosouza.android_test_luizalabs.domain.repository.GistDetailRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +14,7 @@ class GistDetailRepositoryImpl(
 ) :
     GistDetailRepository {
 
-    override fun getGistDetail(id: String): Flow<GistDetail> {
+    override fun getGistDetail(id: String): Flow<Gist> {
         return gistDetailRemoteDataSource.getGistDetail(id)
             .flowOn(dispatcher)
     }

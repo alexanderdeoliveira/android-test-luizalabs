@@ -1,8 +1,8 @@
 package com.yagosouza.android_test_luizalabs.data.api
 
-import com.yagosouza.android_test_luizalabs.data.model.GistDetailResponse
 import com.yagosouza.android_test_luizalabs.data.model.GistResponse
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface GistService {
@@ -13,5 +13,7 @@ interface GistService {
     ): List<GistResponse>
 
     @GET("gists/{gist_id}")
-    suspend fun getGistDetail(id: String): GistDetailResponse
+    suspend fun getGistDetail(
+        @Path("gist_id") id: String
+    ): GistResponse
 }
