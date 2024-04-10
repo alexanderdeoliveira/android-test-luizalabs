@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">android-test-luizalabs</string>
     <string name="list_title">Lista dos Gists</string>
+    <string name="list_favorite_title">Gists Favoritos</string>
     <string name="image_user_gist">Imagem do usuário do gist</string>
+    <string name="home">Home</string>
+    <string name="favorites">Favoritos</string>
 </resources>

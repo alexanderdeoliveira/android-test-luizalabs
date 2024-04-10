@@ -44,12 +44,12 @@ class ListFragment : Fragment(), ListContract.View {
 
     private fun FragmentListBinding.setupRecyclerView() {
         val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        with(recyclerView) {
+        with(includeList.recyclerView) {
             layoutManager = linearLayoutManager
             adapter = listAdapter
             isNestedScrollingEnabled = false
 
-            recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            includeList.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
@@ -62,8 +62,19 @@ class ListFragment : Fragment(), ListContract.View {
         }
     }
 
+    private fun FragmentListBinding.setupBottomNav() {
+        bottomNav.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_home -> navigateToHome()
+                R.id.navigation_favorites -> navigateToFavorites()
+            }
+            true
+        }
+    }
+
     private fun setupView() {
         binding.setupRecyclerView()
+        binding.setupBottomNav()
 
         lifecycle.addObserver(presenter)
         presenter.fetchGist()
@@ -93,6 +104,16 @@ class ListFragment : Fragment(), ListContract.View {
         fragmentTransaction.replace(R.id.container, fragment)
         fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
+    }
+
+    private fun navigateToHome() {
+        binding.includeList.root.isVisible = true
+        binding.includeFavoriteList.root.isVisible = false
+    }
+
+    private fun navigateToFavorites() {
+        binding.includeList.root.isVisible = false
+        binding.includeFavoriteList.root.isVisible = true
     }
 
     companion object {
