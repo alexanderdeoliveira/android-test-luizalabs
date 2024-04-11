@@ -65,10 +65,12 @@ class ListFragment : Fragment(), ListContract.View {
                     super.onScrolled(recyclerView, dx, dy)
                     val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                     val visibleItemCount = layoutManager.childCount
-                    val totalItemCount = layoutManager.itemCount
+                    val totalItemCount = listAdapter.itemCount
                     val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
-                    if (visibleItemCount + firstVisibleItemPosition >= totalItemCount && firstVisibleItemPosition >= 0) {
+                    if (!listAdapter.isFiltered && visibleItemCount + firstVisibleItemPosition >= totalItemCount &&
+                        firstVisibleItemPosition >= 0
+                    ) {
                         presenter.fetchGist(page++)
                     }
                 }
@@ -81,12 +83,12 @@ class ListFragment : Fragment(), ListContract.View {
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                //listAdapter.filter(query)
+                listAdapter.filter(query)
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                //listAdapter.filter(newText)
+                listAdapter.filter(newText)
                 return false
             }
 
