@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -77,6 +78,19 @@ class ListFragment : Fragment(), ListContract.View {
 
     private fun setupView() {
         binding.setupRecyclerView()
+
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                //listAdapter.filter(query)
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                //listAdapter.filter(newText)
+                return false
+            }
+
+        })
 
         lifecycle.addObserver(presenter)
         presenter.fetchGist()

@@ -34,6 +34,19 @@ android {
     buildFeatures {
         viewBinding true
     }
+    flavorDimensions "version"
+    productFlavors {
+        netshoes {
+            dimension "version"
+            applicationIdSuffix ".netshoes"
+            versionNameSuffix "-netshoes"
+        }
+        shoestock {
+            dimension "version"
+            applicationIdSuffix ".shoestock"
+            versionNameSuffix "-shoestock"
+        }
+    }
 }
 
 dependencies {

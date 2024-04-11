@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">netshoes</string>
+    <string name="list_title">Lista dos Gists netshoes</string>
+    <string name="list_favorite_title">Gists Favoritos netshoes</string>
+</resources>
