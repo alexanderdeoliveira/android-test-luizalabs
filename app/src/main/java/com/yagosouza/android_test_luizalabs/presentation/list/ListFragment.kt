@@ -12,6 +12,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.yagosouza.android_test_luizalabs.core.NetworkException
 import com.yagosouza.android_test_luizalabs.core.extensions.navigateToFragment
 import com.yagosouza.android_test_luizalabs.databinding.FragmentListBinding
 import com.yagosouza.android_test_luizalabs.domain.model.Gist
@@ -78,10 +79,8 @@ class ListFragment : Fragment(), ListContract.View {
         }
     }
 
-    private fun setupView() {
-        binding.setupRecyclerView()
-
-        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+    private fun FragmentListBinding.setupSearchBox() {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 listAdapter.filter(query)
                 return false
@@ -91,8 +90,14 @@ class ListFragment : Fragment(), ListContract.View {
                 listAdapter.filter(newText)
                 return false
             }
-
         })
+    }
+
+    private fun setupView() {
+        binding.setupRecyclerView()
+        binding.setupSearchBox()
+        binding.includeError.buttonTryAgain.setOnClickListener { onClickTryAgain() }
+        binding.includeUnrecognizedError.buttonTryAgain.setOnClickListener { onClickTryAgain() }
 
         lifecycle.addObserver(presenter)
         presenter.fetchGist()
@@ -110,6 +115,18 @@ class ListFragment : Fragment(), ListContract.View {
     }
 
     override fun showError(error: Throwable) {
+        when (error) {
+            is NetworkException -> {
+                binding.includeError.textView.text = error.message
+                binding.includeError.root.isVisible = true
+            }
+
+            else -> {
+                binding.includeUnrecognizedError.textView.text = error.message
+                binding.includeUnrecognizedError.root.isVisible = true
+            }
+        }
+
         Log.d("ERRO_API", error.message ?: "Sem mensagem de erro")
     }
 
@@ -117,6 +134,12 @@ class ListFragment : Fragment(), ListContract.View {
         val textToast = if (isFavorite) "Adicionado aos Favoritos" else "Removido dos Favoritos"
         Toast.makeText(context, textToast, Toast.LENGTH_SHORT).show()
         presenter.saveFavorite(gist)
+    }
+
+    private fun onClickTryAgain() {
+        presenter.fetchGist()
+        binding.includeError.root.isVisible = false
+        binding.includeUnrecognizedError.root.isVisible = false
     }
 
     override fun onItemSelected(id: String) {
