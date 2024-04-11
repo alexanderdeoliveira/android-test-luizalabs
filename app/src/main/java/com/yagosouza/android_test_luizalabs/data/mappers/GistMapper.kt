@@ -1,8 +1,6 @@
 package com.yagosouza.android_test_luizalabs.data.mappers
 
-import com.yagosouza.android_test_luizalabs.data.local.FilesEntity
 import com.yagosouza.android_test_luizalabs.data.local.GistEntity
-import com.yagosouza.android_test_luizalabs.data.local.OwnerEntity
 import com.yagosouza.android_test_luizalabs.data.mappers.FilesMapper.mapToDomain
 import com.yagosouza.android_test_luizalabs.data.model.FilesResponse
 import com.yagosouza.android_test_luizalabs.data.model.GistResponse
@@ -13,15 +11,24 @@ import com.yagosouza.android_test_luizalabs.domain.model.Owner
 
 fun OwnerResponse.toDomain() = Owner(login = login, avatarUrl = avatar_url)
 
-fun OwnerEntity.toDomain() = Owner(login = login, avatarUrl = avatarUrl)
-
 fun GistResponse.toDomain() =
     Gist(id = id, files = mapToDomain(files), description = description, owner = owner.toDomain())
 
 fun GistEntity.toDomain() =
-    Gist(id = id, files = files?.toDomain(), description = description, owner = owner?.toDomain())
+    Gist(
+        id = id,
+        files = Files(type = type),
+        description = description,
+        owner = Owner(login = login, avatarUrl = avatarUrl)
+    )
 
-fun FilesEntity.toDomain() = Files(type = type)
+fun Gist.toEntity() = GistEntity(
+    id = id!!, //TODO verificar
+    type = files?.type,
+    description = description,
+    login = owner?.login,
+    avatarUrl = owner?.avatarUrl,
+)
 
 object FilesMapper {
     fun mapToDomain(files: Map<String, FilesResponse>): Files {

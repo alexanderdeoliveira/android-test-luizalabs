@@ -2,6 +2,7 @@ package com.yagosouza.android_test_luizalabs.data.datasource
 
 import com.yagosouza.android_test_luizalabs.data.local.GistDao
 import com.yagosouza.android_test_luizalabs.data.mappers.toDomain
+import com.yagosouza.android_test_luizalabs.data.mappers.toEntity
 import com.yagosouza.android_test_luizalabs.domain.model.Gist
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -13,5 +14,9 @@ class GistLocalDataSourceImpl(private val gistDao: GistDao) : GistLocalDataSourc
 
     override fun getGist(id: String): Flow<Gist> = flow {
         emit(gistDao.getGistById(id).toDomain())
+    }
+
+    override suspend fun setGist(gist: Gist) {
+        gistDao.saveUser(gist.toEntity())
     }
 }

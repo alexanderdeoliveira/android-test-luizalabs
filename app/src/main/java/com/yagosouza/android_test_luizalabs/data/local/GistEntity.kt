@@ -7,24 +7,14 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "GistData")
 data class GistEntity(
     @PrimaryKey(autoGenerate = false)
-    val id: String?,
+    val id: String,
 
     @ColumnInfo
-    val files: FilesEntity?,
+    val type: String?,
 
     @ColumnInfo
     val description: String?,
 
-    @ColumnInfo
-    val owner: OwnerEntity?
-)
-
-data class FilesEntity(
-    @ColumnInfo
-    val type: String?
-)
-
-data class OwnerEntity(
     @ColumnInfo
     val login: String?,
 

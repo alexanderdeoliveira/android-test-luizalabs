@@ -3,13 +3,16 @@ package com.yagosouza.android_test_luizalabs.presentation.list
 import com.yagosouza.android_test_luizalabs.core.base.LifecycleScope
 import com.yagosouza.android_test_luizalabs.domain.model.Gist
 import com.yagosouza.android_test_luizalabs.domain.usecase.GetGistUseCase
+import com.yagosouza.android_test_luizalabs.domain.usecase.SetLocalGistUseCase
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
-class ListPresenterImpl(private val getGistUseCase: GetGistUseCase) : ListContract.Presenter,
-    LifecycleScope() {
+class ListPresenterImpl(
+    private val getGistUseCase: GetGistUseCase,
+    private val setLocalGistUseCase: SetLocalGistUseCase
+) : ListContract.Presenter, LifecycleScope() {
 
     private var view: ListContract.View? = null
 
@@ -24,7 +27,9 @@ class ListPresenterImpl(private val getGistUseCase: GetGistUseCase) : ListContra
     }
 
     override fun saveFavorite(gist: Gist) {
-
+        launch {
+            setLocalGistUseCase.invoke(gist)
+        }
     }
 
     override fun attachView(view: ListContract.View) {

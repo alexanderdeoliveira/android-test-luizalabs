@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("kotlin-kapt")
 }
 
 android {
@@ -62,8 +63,10 @@ dependencies {
     implementation libs.androidx.legacy.support.v4
     implementation libs.androidx.recyclerview
 
+    implementation libs.androidx.room.runtime
     implementation libs.androidx.room.ktx
     annotationProcessor libs.androidx.room.compiler
+    kapt "androidx.room:room-compiler:2.6.1"
 
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
