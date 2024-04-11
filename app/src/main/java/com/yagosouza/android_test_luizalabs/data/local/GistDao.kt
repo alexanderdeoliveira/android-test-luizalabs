@@ -17,6 +17,7 @@ interface GistDao {
     @Query("SELECT * FROM GistData")
     suspend fun getGists(): List<GistEntity>
 
-    @Query("DELETE FROM GistData WHERE id = :id")
+    //@Query("DELETE FROM GistData WHERE id = :id")
+    @Query("UPDATE GistData SET isFavorite = 0 WHERE id = :id")
     suspend fun deleteGist(id: String)
 }

@@ -1,13 +1,20 @@
 package com.yagosouza.android_test_luizalabs.presentation.favorite
 
 import com.yagosouza.android_test_luizalabs.core.base.LifecycleScope
+import com.yagosouza.android_test_luizalabs.domain.model.Gist
 import com.yagosouza.android_test_luizalabs.domain.usecase.GetLocalGistUseCase
+import com.yagosouza.android_test_luizalabs.domain.usecase.RemoveLocalGistUseCase
+import com.yagosouza.android_test_luizalabs.domain.usecase.SetLocalGistUseCase
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
-class FavoritePresenterImpl(private val getLocalGistUseCase: GetLocalGistUseCase) :
+class FavoritePresenterImpl(
+    private val getLocalGistUseCase: GetLocalGistUseCase,
+    private val removeLocalGistUseCase: RemoveLocalGistUseCase,
+    private val setLocalGistUseCase: SetLocalGistUseCase
+) :
     FavoriteContract.Presenter, LifecycleScope() {
 
     private var view: FavoriteContract.View? = null
@@ -22,12 +29,14 @@ class FavoritePresenterImpl(private val getLocalGistUseCase: GetLocalGistUseCase
         }
     }
 
-    override fun removeFavorite() {
-        //TODO("Not yet implemented")
+    override fun removeFavorite(id: String) {
+        launch {
+            removeLocalGistUseCase.invoke(id)
+        }
     }
 
-    override fun addFavorite() {
-        //TODO("Not yet implemented")
+    override fun addFavorite(gist: Gist) {
+        launch { setLocalGistUseCase.invoke(gist) }
     }
 
     override fun attachView(view: FavoriteContract.View) {

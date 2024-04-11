@@ -7,7 +7,7 @@ interface GistLocalDataSource {
 
     fun getGists(): Flow<List<Gist>>
 
-    fun getGist(id: String): Flow<Gist>
+    suspend fun deleteGist(id: String)
 
     suspend fun setGist(gist: Gist)
 }

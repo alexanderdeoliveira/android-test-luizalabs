@@ -28,4 +28,8 @@ class GistRepositoryImpl(
     override suspend fun setGists(gist: Gist) {
         return gistLocalDataSource.setGist(gist)
     }
+
+    override suspend fun removeLocalGist(id: String) {
+        return gistLocalDataSource.deleteGist(id)
+    }
 }

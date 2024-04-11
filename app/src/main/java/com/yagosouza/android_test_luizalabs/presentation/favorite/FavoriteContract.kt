@@ -9,9 +9,9 @@ interface FavoriteContract: BaseContract {
 
         fun fetchGist()
 
-        fun removeFavorite()
+        fun removeFavorite(id: String)
 
-        fun addFavorite()
+        fun addFavorite(gist: Gist)
 
     }
 

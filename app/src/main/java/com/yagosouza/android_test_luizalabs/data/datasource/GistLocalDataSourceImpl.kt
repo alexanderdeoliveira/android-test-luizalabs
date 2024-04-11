@@ -12,8 +12,8 @@ class GistLocalDataSourceImpl(private val gistDao: GistDao) : GistLocalDataSourc
         emit(gistDao.getGists().map { it.toDomain() })
     }
 
-    override fun getGist(id: String): Flow<Gist> = flow {
-        emit(gistDao.getGistById(id).toDomain())
+    override suspend fun deleteGist(id: String) {
+        gistDao.deleteGist(id)
     }
 
     override suspend fun setGist(gist: Gist) {

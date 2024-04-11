@@ -21,6 +21,8 @@ import com.yagosouza.android_test_luizalabs.domain.usecase.GetGistUseCase
 import com.yagosouza.android_test_luizalabs.domain.usecase.GetGistUseCaseImpl
 import com.yagosouza.android_test_luizalabs.domain.usecase.GetLocalGistUseCase
 import com.yagosouza.android_test_luizalabs.domain.usecase.GetLocalGistUseCaseImpl
+import com.yagosouza.android_test_luizalabs.domain.usecase.RemoveLocalGistUseCase
+import com.yagosouza.android_test_luizalabs.domain.usecase.RemoveLocalGistUseCaseImpl
 import com.yagosouza.android_test_luizalabs.domain.usecase.SetLocalGistUseCase
 import com.yagosouza.android_test_luizalabs.domain.usecase.SetLocalGistUseCaseImpl
 import com.yagosouza.android_test_luizalabs.helper.network.Service
@@ -63,10 +65,17 @@ val appModule = module {
     factory<GetLocalGistUseCase> { GetLocalGistUseCaseImpl(repository = get()) }
     factory<GetGistDetailUseCase> { GetGistDetailUseCaseImpl(repository = get()) }
     factory<SetLocalGistUseCase> { SetLocalGistUseCaseImpl(repository = get()) }
+    factory<RemoveLocalGistUseCase> { RemoveLocalGistUseCaseImpl(repository = get()) }
 
     factory { ListPresenterImpl(getGistUseCase = get(), setLocalGistUseCase = get()) }
 
     factory { DetailPresenterImpl(getGistDetailUseCase = get()) }
 
-    factory { FavoritePresenterImpl(getLocalGistUseCase = get()) }
+    factory {
+        FavoritePresenterImpl(
+            getLocalGistUseCase = get(),
+            removeLocalGistUseCase = get(),
+            setLocalGistUseCase = get()
+        )
+    }
 }

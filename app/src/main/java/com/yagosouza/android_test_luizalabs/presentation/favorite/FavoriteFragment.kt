@@ -22,7 +22,8 @@ class FavoriteFragment : Fragment(), FavoriteContract.View {
     private val favoriteAdapter by lazy {
         FavoriteAdapter(
             onItemFavoriteClick = ::onItemFavoriteSelected
-        ) }
+        )
+    }
 
     private val presenter: FavoritePresenterImpl by inject()
 
@@ -61,7 +62,7 @@ class FavoriteFragment : Fragment(), FavoriteContract.View {
     private fun onItemFavoriteSelected(isFavorite: Boolean, gist: Gist) {
         val textToast = if (isFavorite) "Adicionado aos Favoritos" else "Removido dos Favoritos"
         Toast.makeText(context, textToast, Toast.LENGTH_SHORT).show()
-        presenter.addFavorite()
+        if (isFavorite) presenter.addFavorite(gist) else presenter.removeFavorite(gist.id!!)
     }
 
     override fun displayGist(list: List<Gist>) {
