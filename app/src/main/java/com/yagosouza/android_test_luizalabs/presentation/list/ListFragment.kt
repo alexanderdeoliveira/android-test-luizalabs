@@ -1,10 +1,12 @@
 package com.yagosouza.android_test_luizalabs.presentation.list
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,10 +23,17 @@ class ListFragment : Fragment(), ListContract.View {
 
     private lateinit var binding: FragmentListBinding
 
-    private val listAdapter by lazy { ListAdapter(onItemClick = ::onItemSelected) }
+    private val listAdapter by lazy {
+        ListAdapter(
+            onItemClick = ::onItemSelected,
+            onItemFavoriteClick = ::onItemFavoriteSelected
+        )
+    }
     private val presenter: ListPresenterImpl by inject()
 
     private var page = 1
+
+    private val listGists: MutableList<Gist> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,17 +53,21 @@ class ListFragment : Fragment(), ListContract.View {
 
     private fun FragmentListBinding.setupRecyclerView() {
         val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        with(includeList.recyclerView) {
+        with(recyclerView) {
             layoutManager = linearLayoutManager
             adapter = listAdapter
             isNestedScrollingEnabled = false
 
-            includeList.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
+                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                    val visibleItemCount = layoutManager.childCount
+                    val totalItemCount = layoutManager.itemCount
+                    val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
-                    if (!recyclerView.canScrollVertically(1)) {
+                    if (visibleItemCount + firstVisibleItemPosition >= totalItemCount && firstVisibleItemPosition >= 0) {
                         presenter.fetchGist(page++)
                     }
                 }
@@ -62,26 +75,18 @@ class ListFragment : Fragment(), ListContract.View {
         }
     }
 
-    private fun FragmentListBinding.setupBottomNav() {
-        bottomNav.setOnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.navigation_home -> navigateToHome()
-                R.id.navigation_favorites -> navigateToFavorites()
-            }
-            true
-        }
-    }
-
     private fun setupView() {
         binding.setupRecyclerView()
-        binding.setupBottomNav()
 
         lifecycle.addObserver(presenter)
         presenter.fetchGist()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun displayGist(list: List<Gist>) {
-        listAdapter.submitList(list)
+        listGists.addAll(list)
+        listAdapter.submitList(listGists)
+        listAdapter.notifyDataSetChanged()
     }
 
     override fun displayLoading(isLoading: Boolean) {
@@ -92,11 +97,18 @@ class ListFragment : Fragment(), ListContract.View {
         Log.d("ERRO_API", error.message ?: "Sem mensagem de erro")
     }
 
+    private fun onItemFavoriteSelected(isFavorite: Boolean, gist: Gist) {
+        val textToast = if (isFavorite) "Adicionado aos Favoritos" else "Removido dos Favoritos"
+        Toast.makeText(context, textToast, Toast.LENGTH_SHORT).show()
+        presenter.saveFavorite(gist)
+    }
+
     override fun onItemSelected(id: String) {
         navigateToDetail(id)
     }
 
     private fun navigateToDetail(id: String) {
+        //TODO usar metodo activity??
         val fragmentManager = requireActivity().supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         val fragment = DetailFragment.newInstance(id)
@@ -104,16 +116,6 @@ class ListFragment : Fragment(), ListContract.View {
         fragmentTransaction.replace(R.id.container, fragment)
         fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
-    }
-
-    private fun navigateToHome() {
-        binding.includeList.root.isVisible = true
-        binding.includeFavoriteList.root.isVisible = false
-    }
-
-    private fun navigateToFavorites() {
-        binding.includeList.root.isVisible = false
-        binding.includeFavoriteList.root.isVisible = true
     }
 
     companion object {

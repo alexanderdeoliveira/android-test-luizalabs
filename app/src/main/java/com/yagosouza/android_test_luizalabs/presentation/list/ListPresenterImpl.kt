@@ -1,6 +1,7 @@
 package com.yagosouza.android_test_luizalabs.presentation.list
 
 import com.yagosouza.android_test_luizalabs.base.LifecycleScope
+import com.yagosouza.android_test_luizalabs.domain.model.Gist
 import com.yagosouza.android_test_luizalabs.domain.usecase.GetGistUseCase
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onCompletion
@@ -20,6 +21,10 @@ class ListPresenterImpl(private val getGistUseCase: GetGistUseCase) : ListContra
                 .catch { view?.showError(it) }
                 .collect { view?.displayGist(it) }
         }
+    }
+
+    override fun saveFavorite(gist: Gist) {
+
     }
 
     override fun attachView(view: ListContract.View) {

@@ -1,4 +1,4 @@
-package com.yagosouza.android_test_luizalabs.presentation.list.adapter
+package com.yagosouza.android_test_luizalabs.presentation.favorite.adapter
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
@@ -9,13 +9,12 @@ import com.yagosouza.android_test_luizalabs.databinding.FragmentListItemBinding
 import com.yagosouza.android_test_luizalabs.domain.model.Gist
 import java.lang.Exception
 
-class ListViewHolder(
+class FavoriteViewHolder(
     private val binding: FragmentListItemBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(
         gist: Gist,
-        onItemClick: (String) -> Unit,
         onItemFavoriteClick: (Boolean, Gist) -> Unit
     ) =
         with(binding) {
@@ -43,6 +42,5 @@ class ListViewHolder(
 
                 onItemFavoriteClick(gist.isFavorite, gist)
             }
-            root.setOnClickListener { onItemClick(gist.id!!) }
         }
 }

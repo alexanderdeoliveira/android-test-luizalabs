@@ -2,17 +2,48 @@ package com.yagosouza.android_test_luizalabs.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.yagosouza.android_test_luizalabs.R
+import com.yagosouza.android_test_luizalabs.databinding.ActivityMainBinding
+import com.yagosouza.android_test_luizalabs.presentation.favorite.FavoriteFragment
 import com.yagosouza.android_test_luizalabs.presentation.list.ListFragment
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, ListFragment.newInstance())
-                .commitNow()
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        navigateToHome()
+        binding.setupBottomNav()
+    }
+
+    private fun ActivityMainBinding.setupBottomNav() {
+        bottomNav.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_home -> navigateToHome()
+                R.id.navigation_favorites -> navigateToFavorites()
+            }
+            true
         }
+    }
+
+    private fun navigateToHome() {
+        navigateToFragment(ListFragment.newInstance(), ListFragment::class.java.name)
+    }
+
+    private fun navigateToFavorites() {
+        navigateToFragment(FavoriteFragment.newInstance(), FavoriteFragment::class.java.name)
+    }
+
+    private fun navigateToFragment(fragment: Fragment, name: String) {
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.container, fragment)
+            .addToBackStack(name)
+            .commit()
     }
 }

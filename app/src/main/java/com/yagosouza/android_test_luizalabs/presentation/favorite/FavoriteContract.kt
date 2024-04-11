@@ -1,25 +1,26 @@
-package com.yagosouza.android_test_luizalabs.presentation.list
+package com.yagosouza.android_test_luizalabs.presentation.favorite
 
 import com.yagosouza.android_test_luizalabs.base.BaseContract
 import com.yagosouza.android_test_luizalabs.domain.model.Gist
 
-interface ListContract : BaseContract {
+interface FavoriteContract: BaseContract {
 
     interface Presenter : BaseContract.Presenter<View> {
-        fun fetchGist(page: Int = 0)
 
-        fun saveFavorite(gist: Gist)
+        fun fetchGist()
+
+        fun removeFavorite()
+
+        fun addFavorite()
+
     }
 
-    interface View : BaseContract.View {
+    interface View: BaseContract.View {
 
         fun displayGist(list: List<Gist>)
 
         fun displayLoading(isLoading: Boolean)
 
         fun showError(error: Throwable)
-
-        fun onItemSelected(id: String)
-
     }
 }
