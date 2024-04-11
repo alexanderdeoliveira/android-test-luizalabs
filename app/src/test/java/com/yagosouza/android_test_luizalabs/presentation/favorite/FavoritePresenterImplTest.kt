@@ -1,8 +1,9 @@
+package com.yagosouza.android_test_luizalabs.presentation.favorite
+
 import com.yagosouza.android_test_luizalabs.CoroutineTestRule
-import com.yagosouza.android_test_luizalabs.domain.usecase.GetGistUseCase
+import com.yagosouza.android_test_luizalabs.domain.usecase.GetLocalGistUseCase
+import com.yagosouza.android_test_luizalabs.domain.usecase.RemoveLocalGistUseCase
 import com.yagosouza.android_test_luizalabs.domain.usecase.SetLocalGistUseCase
-import com.yagosouza.android_test_luizalabs.presentation.list.ListContract
-import com.yagosouza.android_test_luizalabs.presentation.list.ListPresenterImpl
 import com.yagosouza.android_test_luizalabs.stubs.getSubGistList
 import io.mockk.every
 import io.mockk.mockk
@@ -15,36 +16,38 @@ import org.junit.Rule
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class ListPresenterImplTest {
+class FavoritePresenterImplTest {
 
     @get:Rule
     var mainCoroutineRule = CoroutineTestRule()
 
-    private val getGistUseCase: GetGistUseCase = mockk(relaxed = true)
+    private val getLocalGistUseCase: GetLocalGistUseCase = mockk(relaxed = true)
     private val setLocalGistUseCase: SetLocalGistUseCase = mockk(relaxed = true)
-    private val view: ListContract.View = mockk(relaxed = true)
+    private val removeLocalGistUseCase: RemoveLocalGistUseCase = mockk(relaxed = true)
+    private val view: FavoriteContract.View = mockk(relaxed = true)
 
-    private val listPresenter = ListPresenterImpl(getGistUseCase, setLocalGistUseCase)
+    private val favoritePresenter =
+        FavoritePresenterImpl(getLocalGistUseCase, removeLocalGistUseCase, setLocalGistUseCase)
 
     @Before
     fun setup() {
-        listPresenter.attachView(view)
+        favoritePresenter.attachView(view)
     }
 
     @After
     fun done() {
-        listPresenter.detachView()
+        favoritePresenter.detachView()
     }
 
     @Test
-    fun `fetchGist Should emit Gist list When success`() {
+    fun `fetchGist Should emit Local Gist list When success`() {
         runCatching {
             //Given
             val stubGistList = getSubGistList()
-            every { (getGistUseCase.invoke(0)) } returns flow { emit(stubGistList) }
+            every { (getLocalGistUseCase.invoke()) } returns flow { emit(stubGistList) }
 
             //When
-            listPresenter.fetchGist()
+            favoritePresenter.fetchGist()
 
             //Then
             verify {
@@ -60,10 +63,10 @@ class ListPresenterImplTest {
         runCatching {
             //Given
             val error = Throwable()
-            every { (getGistUseCase.invoke(0)) } returns flow { throw error }
+            every { (getLocalGistUseCase.invoke()) } returns flow { throw error }
 
             //When
-            listPresenter.fetchGist()
+            favoritePresenter.fetchGist()
 
             //Then
             verify {
