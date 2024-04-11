@@ -1,4 +1,4 @@
-package com.yagosouza.android_test_luizalabs.base
+package com.yagosouza.android_test_luizalabs.core.base
 
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner

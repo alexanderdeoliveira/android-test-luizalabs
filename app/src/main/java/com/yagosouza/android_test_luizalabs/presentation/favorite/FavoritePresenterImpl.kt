@@ -1,6 +1,6 @@
 package com.yagosouza.android_test_luizalabs.presentation.favorite
 
-import com.yagosouza.android_test_luizalabs.base.LifecycleScope
+import com.yagosouza.android_test_luizalabs.core.base.LifecycleScope
 
 class FavoritePresenterImpl: FavoriteContract.Presenter, LifecycleScope() {
 

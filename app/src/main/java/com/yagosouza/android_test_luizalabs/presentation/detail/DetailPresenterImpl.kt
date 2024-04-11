@@ -1,6 +1,6 @@
 package com.yagosouza.android_test_luizalabs.presentation.detail
 
-import com.yagosouza.android_test_luizalabs.base.LifecycleScope
+import com.yagosouza.android_test_luizalabs.core.base.LifecycleScope
 import com.yagosouza.android_test_luizalabs.domain.usecase.GetGistDetailUseCase
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onCompletion

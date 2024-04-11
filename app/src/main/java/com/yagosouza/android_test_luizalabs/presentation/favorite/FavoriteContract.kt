@@ -1,6 +1,6 @@
 package com.yagosouza.android_test_luizalabs.presentation.favorite
 
-import com.yagosouza.android_test_luizalabs.base.BaseContract
+import com.yagosouza.android_test_luizalabs.core.base.BaseContract
 import com.yagosouza.android_test_luizalabs.domain.model.Gist
 
 interface FavoriteContract: BaseContract {

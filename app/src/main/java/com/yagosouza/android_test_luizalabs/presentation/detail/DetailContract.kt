@@ -1,6 +1,6 @@
 package com.yagosouza.android_test_luizalabs.presentation.detail
 
-import com.yagosouza.android_test_luizalabs.base.BaseContract
+import com.yagosouza.android_test_luizalabs.core.base.BaseContract
 import com.yagosouza.android_test_luizalabs.domain.model.Gist
 
 interface DetailContract : BaseContract {
