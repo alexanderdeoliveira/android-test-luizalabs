@@ -1,6 +1,5 @@
 package com.yagosouza.android_test_luizalabs.core.extensions
 
-import com.yagosouza.android_test_luizalabs.core.toRequestThrowable
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 

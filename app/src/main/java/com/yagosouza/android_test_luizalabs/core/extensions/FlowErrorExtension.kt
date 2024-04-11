@@ -1,4 +1,4 @@
-package com.yagosouza.android_test_luizalabs.core
+package com.yagosouza.android_test_luizalabs.core.extensions
 
 import retrofit2.HttpException
 import java.net.ConnectException

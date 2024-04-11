@@ -13,7 +13,7 @@ class GistLocalDataSourceImpl(private val gistDao: GistDao) : GistLocalDataSourc
     }
 
     override suspend fun deleteGist(id: String) {
-        gistDao.deleteGist(id)
+        gistDao.setUnfavoriteGist(id)
     }
 
     override suspend fun setGist(gist: Gist) {

@@ -12,7 +12,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.yagosouza.android_test_luizalabs.core.NetworkException
+import com.yagosouza.android_test_luizalabs.core.extensions.NetworkException
 import com.yagosouza.android_test_luizalabs.core.extensions.navigateToFragment
 import com.yagosouza.android_test_luizalabs.databinding.FragmentListBinding
 import com.yagosouza.android_test_luizalabs.domain.model.Gist
