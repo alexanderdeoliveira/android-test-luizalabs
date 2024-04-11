@@ -33,16 +33,21 @@ class ListViewHolder(
                         binding.progressBar.visibility = View.GONE
                     }
                 })
+
+            handleImageButtonFavorite(gist)
             imageButtonFavorite.setOnClickListener {
                 gist.isFavorite = !gist.isFavorite
-
-                if (gist.isFavorite)
-                    imageButtonFavorite.setImageResource(R.drawable.ic_star)
-                else
-                    imageButtonFavorite.setImageResource(R.drawable.ic_star_outline)
-
+                handleImageButtonFavorite(gist)
                 onItemFavoriteClick(gist.isFavorite, gist)
             }
             root.setOnClickListener { onItemClick(gist.id!!) }
         }
+
+    //TODO VERIFICAR DUPLICIDADE
+    fun FragmentListItemBinding.handleImageButtonFavorite(gist: Gist) {
+        if (gist.isFavorite)
+            imageButtonFavorite.setImageResource(R.drawable.ic_star)
+        else
+            imageButtonFavorite.setImageResource(R.drawable.ic_star_outline)
+    }
 }

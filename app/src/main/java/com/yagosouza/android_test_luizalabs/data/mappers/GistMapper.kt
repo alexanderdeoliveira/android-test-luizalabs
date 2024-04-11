@@ -19,7 +19,8 @@ fun GistEntity.toDomain() =
         id = id,
         files = Files(type = type),
         description = description,
-        owner = Owner(login = login, avatarUrl = avatarUrl)
+        owner = Owner(login = login, avatarUrl = avatarUrl),
+        isFavorite = isFavorite
     )
 
 fun Gist.toEntity() = GistEntity(

@@ -19,5 +19,8 @@ data class GistEntity(
     val login: String?,
 
     @ColumnInfo
-    val avatarUrl: String?
+    val avatarUrl: String?,
+
+    @ColumnInfo
+    val isFavorite: Boolean = true
 )
