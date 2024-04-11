@@ -40,10 +40,9 @@ class ListViewHolder(
                 handleImageButtonFavorite(gist)
                 onItemFavoriteClick(gist.isFavorite, gist)
             }
-            root.setOnClickListener { onItemClick(gist.id!!) }
+            root.setOnClickListener { onItemClick(gist.id) }
         }
 
-    //TODO VERIFICAR DUPLICIDADE
     fun FragmentListItemBinding.handleImageButtonFavorite(gist: Gist) {
         if (gist.isFavorite)
             imageButtonFavorite.setImageResource(R.drawable.ic_star)

@@ -41,7 +41,6 @@ class FavoriteViewHolder(
             }
         }
 
-            //TODO VERIFICAR DUPLICIDADE
     fun FragmentListItemBinding.handleImageButtonFavorite(gist: Gist) {
         if (gist.isFavorite)
             imageButtonFavorite.setImageResource(R.drawable.ic_star)

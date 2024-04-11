@@ -62,7 +62,7 @@ class FavoriteFragment : Fragment(), FavoriteContract.View {
     private fun onItemFavoriteSelected(isFavorite: Boolean, gist: Gist) {
         val textToast = if (isFavorite) "Adicionado aos Favoritos" else "Removido dos Favoritos"
         Toast.makeText(context, textToast, Toast.LENGTH_SHORT).show()
-        if (isFavorite) presenter.addFavorite(gist) else presenter.removeFavorite(gist.id!!)
+        if (isFavorite) presenter.addFavorite(gist) else presenter.removeFavorite(gist.id)
     }
 
     override fun displayGist(list: List<Gist>) {

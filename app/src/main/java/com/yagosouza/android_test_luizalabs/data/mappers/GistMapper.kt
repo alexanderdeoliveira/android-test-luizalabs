@@ -24,7 +24,7 @@ fun GistEntity.toDomain() =
     )
 
 fun Gist.toEntity() = GistEntity(
-    id = id!!, //TODO verificar
+    id = id,
     type = files?.type,
     description = description,
     login = owner?.login,
