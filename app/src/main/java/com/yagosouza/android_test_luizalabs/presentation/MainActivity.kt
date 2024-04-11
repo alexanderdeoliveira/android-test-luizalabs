@@ -2,8 +2,8 @@ package com.yagosouza.android_test_luizalabs.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import com.yagosouza.android_test_luizalabs.R
+import com.yagosouza.android_test_luizalabs.core.extensions.navigateToFragment
 import com.yagosouza.android_test_luizalabs.databinding.ActivityMainBinding
 import com.yagosouza.android_test_luizalabs.presentation.favorite.FavoriteFragment
 import com.yagosouza.android_test_luizalabs.presentation.list.ListFragment
@@ -37,13 +37,5 @@ class MainActivity : AppCompatActivity() {
 
     private fun navigateToFavorites() {
         navigateToFragment(FavoriteFragment.newInstance(), FavoriteFragment::class.java.name)
-    }
-
-    private fun navigateToFragment(fragment: Fragment, name: String) {
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.container, fragment)
-            .addToBackStack(name)
-            .commit()
     }
 }

@@ -12,7 +12,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.yagosouza.android_test_luizalabs.R
+import com.yagosouza.android_test_luizalabs.core.extensions.navigateToFragment
 import com.yagosouza.android_test_luizalabs.databinding.FragmentListBinding
 import com.yagosouza.android_test_luizalabs.domain.model.Gist
 import com.yagosouza.android_test_luizalabs.presentation.detail.DetailFragment
@@ -124,14 +124,7 @@ class ListFragment : Fragment(), ListContract.View {
     }
 
     private fun navigateToDetail(id: String) {
-        //TODO usar metodo activity??
-        val fragmentManager = requireActivity().supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        val fragment = DetailFragment.newInstance(id)
-
-        fragmentTransaction.replace(R.id.container, fragment)
-        fragmentTransaction.addToBackStack(null)
-        fragmentTransaction.commit()
+        navigateToFragment(DetailFragment.newInstance(id), DetailFragment::class.java.name)
     }
 
     companion object {
