@@ -4,7 +4,7 @@ Projeto que realiza chamadas a API [https://api.github.com/gists/public] e conve
 # Arquitetura
 Foi optado por utilizar o padrão MVP nesse projeto, assim como os príncipios do Clean Architecture. Em virtude do conhecimento de que app da Netshoes utiliza essa arquitetura no momento. 
 
-![image](https://github.com/yagosouza/android-test-luizalabs/assets/3721436/452d1196-5149-473f-822c-8f5709a4a112)
+![image](https://github.com/android-test-luizalabs/assets/3721436/452d1196-5149-473f-822c-8f5709a4a112)
 
 # O que foi utilizado
 
@@ -32,11 +32,4 @@ Testes unitários
 - CoroutineTestRule
 
 # Demonstração
-<img src="https://github.com/yagosouza/android-test-luizalabs/assets/3721436/0e77d29f-56f2-45fb-a37e-45535adc7994" alt="demo" width="300"/>
-
-# Futuro
-Como o aplicativo ainda pode ser melhorados, tem alguns pontos que podem e já foram analisados e pensados:
-- Modularizar
-- Nova feature de Detalhamento do conteúdo do arquivo em Detalhes
-- Botão para chegar ao top da lista e um swipe refresh
-- Entre outros
+<img src="https://github.com/android-test-luizalabs/assets/3721436/0e77d29f-56f2-45fb-a37e-45535adc7994" alt="demo" width="300"/>

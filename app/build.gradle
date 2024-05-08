@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace 'com.yagosouza.android_test_luizalabs'
+    namespace 'com.android_test_luizalabs'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.yagosouza.android_test_luizalabs"
+        applicationId "com.android_test_luizalabs"
         minSdk 24
         targetSdk 34
         versionCode 1
