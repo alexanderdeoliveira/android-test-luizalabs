@@ -30,6 +30,3 @@ Framework DI
 Testes unitários
 - MockK
 - CoroutineTestRule
-
-# Demonstração
-<img src="https://github.com/android-test-luizalabs/assets/3721436/0e77d29f-56f2-45fb-a37e-45535adc7994" alt="demo" width="300"/>
