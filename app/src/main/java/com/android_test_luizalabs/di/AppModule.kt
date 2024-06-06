@@ -28,7 +28,6 @@ import com.android_test_luizalabs.domain.usecase.SetLocalGistUseCaseImpl
 import com.android_test_luizalabs.helper.network.Service
 import com.android_test_luizalabs.presentation.detail.DetailPresenterImpl
 import com.android_test_luizalabs.presentation.favorite.FavoritePresenterImpl
-import com.android_test_luizalabs.presentation.list.ListPresenterImpl
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 
